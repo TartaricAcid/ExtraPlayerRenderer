@@ -1,0 +1,7 @@
+#PARSE_ESCAPES
+gui.extra_player_renderer.config.text=Usage:\n\
+                                      Left Drag: Rotate\n\
+                                      Right Drag: Translate\n\
+                                      Slide Wheel: Scale\n\
+                                      Alt + R: Reset\n\n\
+                                      [Press Esc To Exit]
