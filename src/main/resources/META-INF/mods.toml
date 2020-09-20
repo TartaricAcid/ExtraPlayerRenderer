@@ -1,0 +1,15 @@
+modLoader="javafml"
+loaderVersion="[34,)"
+license="MIT"
+issueTrackerURL="https://github.com/TartaricAcid/ExtraPlayerRenderer/issues"
+
+[[mods]]
+    modId="extraplayerrenderer"
+    version="${file.jarVersion}"
+    displayName="Extra Player Renderer"
+    # logoFile="extra_player_renderer.png"
+    credits="LucunJi"
+    authors="TartaricAcid"
+    description='''
+    Render a player entity on the screen
+    '''
