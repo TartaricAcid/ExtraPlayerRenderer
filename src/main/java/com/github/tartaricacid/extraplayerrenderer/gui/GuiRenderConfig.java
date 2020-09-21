@@ -29,8 +29,12 @@ public class GuiRenderConfig extends Screen {
         int middleX = field_230708_k_ / 2;
         int middleY = field_230709_l_ / 2;
         drawGradientRect(matrixStack.getLast().getMatrix(), 0, middleX - 60, middleY - 45, middleX + 70, middleY + 45, 0xcc111111, 0xcc111111);
-        String text = I18n.format("gui.extra_player_renderer.config.text");
-        // field_230712_o_.drawSplitString(text, middleX - 50, middleY - 35, 140, 0xffffffff);
+        String[] text = I18n.format("gui.extra_player_renderer.config.text").split("\n");
+        int y = middleY - 35;
+        for (String s : text) {
+            field_230712_o_.func_238405_a_(matrixStack, s, middleX - 50, y, 0xffffffff);
+            y += field_230712_o_.FONT_HEIGHT;
+        }
     }
 
     @Override
