@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "extra_player_renderer",
+    "name": "Extra Player Renderer",
+    "description": "Render a player entity on the screen",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "TartaricAcid"
+    ],
+    "credits": "LucunJi",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
