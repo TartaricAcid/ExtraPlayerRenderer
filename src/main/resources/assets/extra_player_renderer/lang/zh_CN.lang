@@ -1,0 +1,2 @@
+#PARSE_ESCAPES
+gui.extra_player_renderer.config.text=配置界面说明：\n拖动鼠标左键： 旋转人物\n拖动鼠标右键： 移动人物\n滑动鼠标滚轮： 缩放人物\nAlt R 键：重置人物\n\n【按下 Esc 键退出配置界面】
