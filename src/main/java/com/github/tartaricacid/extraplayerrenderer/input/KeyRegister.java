@@ -1,0 +1,15 @@
+package com.github.tartaricacid.extraplayerrenderer.input;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fmlclient.registry.ClientRegistry;
+
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+public class KeyRegister {
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        ClientRegistry.registerKeyBinding(OpenConfigKey.OPEN_CONFIG_KEY);
+    }
+}
