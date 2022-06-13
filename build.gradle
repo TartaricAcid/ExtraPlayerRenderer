@@ -1,11 +1,12 @@
 buildscript {
     repositories {
+        maven { url = 'https://sizableshrimp.me/maven' }
         maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'me.sizableshrimp.gradle', name: 'ForgeGradle', version: '5.0.+', changing: true
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -16,10 +17,10 @@ version = '1.0.0'
 group = 'com.github.tartaricacid'
 archivesBaseName = 'extraplayerrenderer'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' 
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200514-1.16'
+    mappings channel: 'official_snapshot', version: '20210309-1.16.5'
     runs {
         client {
             workingDirectory project.file('run')
@@ -58,7 +59,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.3-34.0.9'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.0'
 }
 
 jar {

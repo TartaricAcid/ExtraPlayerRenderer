@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 public final class ConfigFileManager {
-    private static final File CONFIG_FILE = Minecraft.getInstance().gameDir.toPath()
+    private static final File CONFIG_FILE = Minecraft.getInstance().gameDirectory.toPath()
             .resolve("config").resolve("extra_player_renderer.json").toFile();
     private static final Gson GSON = new Gson();
     private static ConfigPOJO CONFIG_POJO;

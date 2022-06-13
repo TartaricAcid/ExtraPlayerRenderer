@@ -10,9 +10,7 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT)
@@ -26,8 +24,8 @@ public class OpenConfigKey {
 
     @SubscribeEvent
     public static void onKeyboardInput(InputEvent.KeyInputEvent event) {
-        if (OPEN_CONFIG_KEY.isPressed()) {
-            Minecraft.getInstance().displayGuiScreen(new GuiRenderConfig(new StringTextComponent("config_gui")));
+        if (OPEN_CONFIG_KEY.isDown()) {
+            Minecraft.getInstance().setScreen(new GuiRenderConfig(new StringTextComponent("config_gui")));
         }
     }
 }

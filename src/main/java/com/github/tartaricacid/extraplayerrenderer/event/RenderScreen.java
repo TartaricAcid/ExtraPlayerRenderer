@@ -6,8 +6,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,25 +34,23 @@ public class RenderScreen {
         }
 
         RenderSystem.pushMatrix();
-        RenderSystem.translatef(posX, posY, -500.0F);
-        RenderSystem.scalef(-scale, scale, scale);
-        RenderSystem.rotatef(180.0F, 0.0F, 0.0F, 1.0F);
-        RenderSystem.rotatef(player.rotationYaw + yawOffset, 0.0F, 1.0F, 0.0F);
-
-        RenderSystem.rotatef(135.0F, 0.0F, 1.0F, 0.0F);
-        RenderHelper.enableStandardItemLighting();
-        RenderSystem.rotatef(-135.0F, 0.0F, 1.0F, 0.0F);
-
-        EntityRendererManager manager = Minecraft.getInstance().getRenderManager();
-        manager.setRenderShadow(false);
-        IRenderTypeBuffer.Impl bufferSource = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        manager.renderEntityStatic(player, 0.0D, 0.0D, 0.0D, 0.0F,
-                event.getPartialTicks(), new MatrixStack(), bufferSource, 15728880);
-        bufferSource.finish();
-        manager.setRenderShadow(true);
-
+        RenderSystem.translatef(posX, posY, -500);
+        RenderSystem.scalef(1, 1, -1);
+        MatrixStack matrixstack = new MatrixStack();
+        matrixstack.scale(scale, scale, scale);
+        Quaternion zRot = Vector3f.ZP.rotationDegrees(180.0F);
+        Quaternion yRot = Vector3f.YP.rotationDegrees(player.yBodyRot + yawOffset - 180);
+        zRot.mul(yRot);
+        matrixstack.mulPose(zRot);
+        EntityRendererManager rendererManager = Minecraft.getInstance().getEntityRenderDispatcher();
+        yRot.conj();
+        rendererManager.overrideCameraOrientation(yRot);
+        rendererManager.setRenderShadow(false);
+        IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+        RenderSystem.runAsFancy(() -> rendererManager.render(player, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixstack, buffer, 15728880));
+        buffer.endBatch();
+        rendererManager.setRenderShadow(true);
         RenderSystem.popMatrix();
-        RenderHelper.disableStandardItemLighting();
     }
 
     public static float getScale() {

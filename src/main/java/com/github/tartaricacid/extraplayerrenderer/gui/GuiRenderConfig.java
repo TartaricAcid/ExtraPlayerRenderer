@@ -24,21 +24,21 @@ public class GuiRenderConfig extends Screen {
     }
 
     @Override
-    public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float particleTick) {
-        super.func_230430_a_(matrixStack, mouseX, mouseY, particleTick);
-        int middleX = field_230708_k_ / 2;
-        int middleY = field_230709_l_ / 2;
-        drawGradientRect(matrixStack.getLast().getMatrix(), 0, middleX - 60, middleY - 45, middleX + 70, middleY + 45, 0xcc111111, 0xcc111111);
-        String[] text = I18n.format("gui.extra_player_renderer.config.text").split("\n");
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float particleTick) {
+        super.render(matrixStack, mouseX, mouseY, particleTick);
+        int middleX = width / 2;
+        int middleY = height / 2;
+        drawGradientRect(matrixStack.last().pose(), 0, middleX - 60, middleY - 45, middleX + 70, middleY + 45, 0xcc111111, 0xcc111111);
+        String[] text = I18n.get("gui.extra_player_renderer.config.text").split("\n");
         int y = middleY - 35;
         for (String s : text) {
-            field_230712_o_.func_238405_a_(matrixStack, s, middleX - 50, y, 0xffffffff);
-            y += field_230712_o_.FONT_HEIGHT;
+            font.draw(matrixStack, s, middleX - 50, y, 0xffffffff);
+            y += font.lineHeight;
         }
     }
 
     @Override
-    public boolean func_231043_a_(double mouseX, double mouseY, double scroll) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
         if (scroll != 0) {
             changeScaleValue((float) scroll * 3f);
             return true;
@@ -47,7 +47,7 @@ public class GuiRenderConfig extends Screen {
     }
 
     @Override
-    public boolean func_231045_a_(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         boolean result = false;
         if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
             RenderScreen.setYawOffset((float) deltaX + RenderScreen.getYawOffset());
@@ -63,15 +63,15 @@ public class GuiRenderConfig extends Screen {
     }
 
     @Override
-    public boolean func_231042_a_(char typedChar, int keyCode) {
-        if (Character.toLowerCase(typedChar) == 'r' && func_231174_t_()) {
+    public boolean charTyped(char typedChar, int keyCode) {
+        if (Character.toLowerCase(typedChar) == 'r' && hasAltDown()) {
             ConfigPOJO pojo = ConfigPOJO.getInstance();
             RenderScreen.setPosX(pojo.getPosX());
             RenderScreen.setPosY(pojo.getPosY());
             RenderScreen.setScale(pojo.getScale());
             RenderScreen.setYawOffset(pojo.getYawOffset());
         }
-        return super.func_231042_a_(typedChar, keyCode);
+        return super.charTyped(typedChar, keyCode);
     }
 
     /**
@@ -85,12 +85,12 @@ public class GuiRenderConfig extends Screen {
     }
 
     @Override
-    public void func_231175_as__() {
+    public void onClose() {
         ConfigFileManager.writeConfigFile(
                 new ConfigPOJO(RenderScreen.getPosX(),
                         RenderScreen.getPosY(),
                         RenderScreen.getScale(),
                         RenderScreen.getYawOffset()));
-        super.func_231175_as__();
+        super.onClose();
     }
 }
