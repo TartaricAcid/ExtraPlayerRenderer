@@ -11,7 +11,8 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -23,8 +24,8 @@ public class RenderScreen {
     private static float yawOffset = ConfigFileManager.getConfigPojo().getYawOffset();
 
     @SubscribeEvent
-    public static void onRenderScreen(RenderGameOverlayEvent event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.LAYER) {
+    public static void onRenderScreen(RenderGuiOverlayEvent event) {
+        if (event.getOverlay() != VanillaGuiOverlay.HOTBAR.type()) {
             return;
         }
         Minecraft mc = Minecraft.getInstance();

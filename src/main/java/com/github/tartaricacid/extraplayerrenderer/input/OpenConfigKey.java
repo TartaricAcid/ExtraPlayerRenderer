@@ -23,7 +23,7 @@ public class OpenConfigKey {
             "key.category.extra_player_renderer");
 
     @SubscribeEvent
-    public static void onKeyboardInput(InputEvent.KeyInputEvent event) {
+    public static void onKeyboardInput(InputEvent.Key event) {
         if (OPEN_CONFIG_KEY.isDown()) {
             Minecraft.getInstance().setScreen(new GuiRenderConfig(Component.literal("config_gui")));
         }

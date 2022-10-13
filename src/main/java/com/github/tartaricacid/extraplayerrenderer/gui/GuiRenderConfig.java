@@ -4,15 +4,16 @@ import com.github.tartaricacid.extraplayerrenderer.config.ConfigFileManager;
 import com.github.tartaricacid.extraplayerrenderer.config.ConfigPOJO;
 import com.github.tartaricacid.extraplayerrenderer.event.RenderScreen;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.gui.ScreenUtils;
 import org.lwjgl.glfw.GLFW;
 
-import static net.minecraftforge.client.gui.GuiUtils.drawGradientRect;
 
 @OnlyIn(Dist.CLIENT)
 public class GuiRenderConfig extends Screen {
@@ -28,7 +29,7 @@ public class GuiRenderConfig extends Screen {
         super.render(matrixStack, mouseX, mouseY, particleTick);
         int middleX = width / 2;
         int middleY = height / 2;
-        drawGradientRect(matrixStack.last().pose(), 0, middleX - 60, middleY - 45, middleX + 70, middleY + 45, 0xcc111111, 0xcc111111);
+        ScreenUtils.drawGradientRect(matrixStack.last().pose(), 0, middleX - 60, middleY - 45, middleX + 70, middleY + 45, 0xcc111111, 0xcc111111);
         String[] text = I18n.get("gui.extra_player_renderer.config.text").split("\n");
         int y = middleY - 35;
         for (String s : text) {
