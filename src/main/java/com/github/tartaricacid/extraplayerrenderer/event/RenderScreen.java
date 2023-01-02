@@ -23,8 +23,8 @@ public class RenderScreen {
     private static float yawOffset = ConfigFileManager.getConfigPojo().getYawOffset();
 
     @SubscribeEvent
-    public static void onRenderScreen(RenderGameOverlayEvent event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.LAYER) {
+    public static void onRenderScreen(RenderGameOverlayEvent.Pre event) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
             return;
         }
         Minecraft mc = Minecraft.getInstance();
