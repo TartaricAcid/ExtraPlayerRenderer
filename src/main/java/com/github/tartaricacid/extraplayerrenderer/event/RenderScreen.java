@@ -49,7 +49,7 @@ public class RenderScreen {
     }
 
     @SubscribeEvent
-    public void onRenderScreen(RenderGameOverlayEvent event) {
+    public void onRenderScreen(RenderGameOverlayEvent.Pre event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR) {
             return;
         }
