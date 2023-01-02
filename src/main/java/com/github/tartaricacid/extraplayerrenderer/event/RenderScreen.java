@@ -24,7 +24,7 @@ public class RenderScreen {
     private static float yawOffset = ConfigFileManager.getConfigPojo().getYawOffset();
 
     @SubscribeEvent
-    public static void onRenderScreen(RenderGuiOverlayEvent event) {
+    public static void onRenderScreen(RenderGuiOverlayEvent.Pre event) {
         if (event.getOverlay() != VanillaGuiOverlay.HOTBAR.type()) {
             return;
         }
