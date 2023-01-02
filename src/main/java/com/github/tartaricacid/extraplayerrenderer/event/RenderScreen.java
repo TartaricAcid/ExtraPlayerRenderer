@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 @Mod.EventBusSubscriber(value = Side.CLIENT)
 public class RenderScreen {
     @SubscribeEvent
-    public static void onRenderScreen(RenderGameOverlayEvent event) {
+    public static void onRenderScreen(RenderGameOverlayEvent.Pre event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR) {
             return;
         }
