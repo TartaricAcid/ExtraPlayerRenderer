@@ -4,8 +4,6 @@ import com.github.tartaricacid.extraplayerrenderer.config.ConfigFileManager;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,6 +13,7 @@ import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.joml.Quaternionf;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT)
 public class RenderScreen {
@@ -42,13 +41,13 @@ public class RenderScreen {
         RenderSystem.applyModelViewMatrix();
         PoseStack stack = new PoseStack();
         stack.scale(scale, scale, scale);
-        Quaternion zRot = Vector3f.ZP.rotationDegrees(180.0F);
-        Quaternion yRot = Vector3f.YP.rotationDegrees(player.yBodyRot + yawOffset - 180);
+        Quaternionf zRot = (new Quaternionf()).rotateZ((float) Math.PI);
+        Quaternionf yRot = (new Quaternionf()).rotateY((player.yBodyRot + yawOffset - 180) * ((float) Math.PI / 180F));
         zRot.mul(yRot);
         stack.mulPose(zRot);
         Lighting.setupForEntityInInventory();
         EntityRenderDispatcher renderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
-        yRot.conj();
+        yRot.conjugate();
         renderDispatcher.overrideCameraOrientation(yRot);
         renderDispatcher.setRenderShadow(false);
         MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
